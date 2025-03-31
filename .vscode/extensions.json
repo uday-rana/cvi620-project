@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "ms-toolsai.datawrangler",
+    "ms-toolsai.jupyter",
+    "ms-python.vscode-pylance",
+    "ms-python.python",
+    "ms-python.debugpy",
+    "ms-python.isort",
+    "ms-python.pylint",
+    "ms-python.autopep8",
+    "streetsidesoftware.code-spell-checker",
+    "charliermarsh.ruff"
+  ]
+}
