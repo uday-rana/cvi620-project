@@ -171,6 +171,3 @@ cython_debug/
 .pypirc
 
 .ruff_cache
-
-data/
-*.jpg
