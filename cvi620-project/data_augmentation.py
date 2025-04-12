@@ -1,64 +1,65 @@
 import os
-import pandas as pd
 import cv2
+import csv
 import numpy as np
 import random
 from tqdm import tqdm
+import pandas as pd
 
 def augment_data():
     print("In augment_data()")
 
-    input_csv = '../data/forward/driving_log.csv'
-    output_dir = '../data/augmented/IMG'
-    output_csv = '../data/augmented/driving_log_augmented.csv'
+    # Input and output paths
+    input_csv = "../data/forward/driving_log.csv"
+    output_dir = "../data/augmented/IMG"
+    output_csv = "../data/augmented/driving_log_augmented.csv"
 
+    # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
-    os.makedirs(os.path.dirname(output_csv), exist_ok=True)
 
+    # Load the driving log CSV (no header in this file)
     df = pd.read_csv(input_csv, header=None)
+
     augmented_rows = []
 
-    for i, row in tqdm(df.iterrows(), total=len(df)):
-        img_path = row[0]
-        steering = float(row[3])
-        img = cv2.imread(img_path)
-        if img is None:
-            continue
+    # Iterate through each row of the dataset
+    for index, row in tqdm(df.iterrows(), total=len(df)):
+        center_path, left_path, right_path, steering, throttle, brake, speed = row
 
-        base_name = os.path.basename(img_path)
-        new_img_path = os.path.join(output_dir, base_name)
-        cv2.imwrite(new_img_path, img)
-        augmented_rows.append([new_img_path, steering])
+        # Read the center camera image
+        center_img = cv2.imread(center_path.strip())
+        if center_img is None:
+            continue  # Skip if the image can't be read
 
-        # Data Augmentation - Flip
+        # Save the original image to output directory
+        filename = os.path.basename(center_path)
+        new_path = os.path.join(output_dir, filename)
+        cv2.imwrite(new_path, center_img)
+        augmented_rows.append([new_path, steering, throttle, brake, speed])
+
+        steering = float(steering)
+
+        # Randomly apply horizontal flipping
         if random.random() < 0.5:
-            flipped = cv2.flip(img, 1)
-            flipped_name = f'flip_{base_name}'
-            flipped_path = os.path.join(output_dir, flipped_name)
-            cv2.imwrite(flipped_path, flipped)
-            augmented_rows.append([flipped_path, -steering])
+            flipped_img = cv2.flip(center_img, 1)
+            flipped_filename = "flipped_" + filename
+            flipped_path = os.path.join(output_dir, flipped_filename)
+            cv2.imwrite(flipped_path, flipped_img)
+            augmented_rows.append([flipped_path, -steering, throttle, brake, speed])
 
-        # Brightness
+        # Randomly apply brightness adjustment
         if random.random() < 0.3:
-            hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-            hsv[:, :, 2] = hsv[:, :, 2] * random.uniform(0.5, 1.2)
-            bright = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
-            bright_name = f'bright_{base_name}'
-            bright_path = os.path.join(output_dir, bright_name)
-            cv2.imwrite(bright_path, bright)
-            augmented_rows.append([bright_path, steering])
+            hsv = cv2.cvtColor(center_img, cv2.COLOR_BGR2HSV)
+            hsv[:, :, 2] = hsv[:, :, 2] * random.uniform(0.5, 1.5)  # Change brightness
+            bright_img = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+            bright_filename = "bright_" + filename
+            bright_path = os.path.join(output_dir, bright_filename)
+            cv2.imwrite(bright_path, bright_img)
+            augmented_rows.append([bright_path, steering, throttle, brake, speed])
 
-        # Rotation
-        if random.random() < 0.3:
-            h, w = img.shape[:2]
-            angle = random.uniform(-10, 10)
-            rot_matrix = cv2.getRotationMatrix2D((w/2, h/2), angle, 1)
-            rotated = cv2.warpAffine(img, rot_matrix, (w, h))
-            rot_name = f'rot_{base_name}'
-            rot_path = os.path.join(output_dir, rot_name)
-            cv2.imwrite(rot_path, rotated)
-            augmented_rows.append([rot_path, steering])
+    # Save the new augmented dataset
+    with open(output_csv, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerows(augmented_rows)
 
-    # Save new CSV
-    pd.DataFrame(augmented_rows).to_csv(output_csv, index=False, header=False)
     print(f"Saved augmented data to {output_csv}")
