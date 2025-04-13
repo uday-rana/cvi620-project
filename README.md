@@ -14,7 +14,5 @@ Final Project
 
 ```sh
 git clone
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .\.venv\Scripts\activate
-python -m pip install -r requirements.txt
+conda env create -f environment.yaml
 ```

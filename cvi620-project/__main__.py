@@ -1,14 +1,21 @@
 from data_augmentation import augment_data
 from data_preprocessing import preprocess_data
-from training import train
-from inference import test
+from dataset_batching import batch_dataset
+from model_training import train_model
+from training_visualization import visualize_training
+
 
 def main():
-    print("In main()")
+    DATASET_PATH = "./data"
+
+    print("Starting...")
+
     augment_data()
-    preprocess_data()
-    train()
-    test()
+    preprocess_data(DATASET_PATH)
+    batch_dataset()
+    train_model()
+    visualize_training()
+
 
 if __name__ == "__main__":
     main()
