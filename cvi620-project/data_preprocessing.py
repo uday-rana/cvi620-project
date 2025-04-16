@@ -2,6 +2,7 @@ import os
 import cv2 as cv
 import numpy as np
 from pandas import read_csv
+from sklearn.model_selection import train_test_split
 
 
 def preprocess_data(dataset_path):
@@ -40,4 +41,4 @@ def preprocess_data(dataset_path):
     images = np.array(images)
     steerings = np.array(steerings)
 
-    return images, steerings
+    return train_test_split(images, steerings, test_size=0.2, shuffle=True)

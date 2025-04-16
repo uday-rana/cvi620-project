@@ -2,8 +2,9 @@ import numpy as np
 import cv2
 import random
 
+
 def augment_data(images, steerings):
-    print("Augmenting the data...")
+    print("Augmenting the training data...")
 
     aug_images = []
     aug_steerings = []
