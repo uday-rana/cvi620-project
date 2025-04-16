@@ -35,7 +35,7 @@ def train_model(x_train, x_test, y_train, y_test):
         y_train,
         batch_size=16,
         validation_data=(x_test, y_test),
-        epochs=20,
+        epochs=10,
     )
 
     net.save("model.h5")
