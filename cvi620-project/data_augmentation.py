@@ -42,11 +42,11 @@ def augment_data(images, steerings):
             aug = aug[start_y : start_y + h, start_x : start_x + w]
 
             # Shift
-            dx = random.randint(-20, 20)
+            dx = random.randint(-30, 30)
             dy = random.randint(-10, 10)
             M = np.float32([[1, 0, dx], [0, 1, dy]])
             aug = cv2.warpAffine(aug, M, (w, h))
-            aug_steering += dx * 0.002
+            aug_steering += dx * 0.003
 
             # Rotate
             angle = random.uniform(-10, 10)
