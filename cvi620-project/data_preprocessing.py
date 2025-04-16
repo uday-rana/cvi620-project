@@ -21,13 +21,10 @@ def preprocess_data(dataset_path):
         if abs(row.steering) < 0.01 and np.random.rand() < 0.5:
             continue
 
-        # Get relative path to image
-        image_path = os.path.join(
-            dataset_path, *os.path.normpath(row.center).split(os.sep)[-2:]
+        # Get path to image
+        image_path = os.path.normpath(
+            os.path.join(dataset_path, "IMG", os.path.basename(row.center))
         )
-
-        # Replace backslashes with forward slashes
-        image_path = image_path.replace("\\", "/")
 
         print(f"Reading {image_path}")
         img = cv.imread(image_path)
