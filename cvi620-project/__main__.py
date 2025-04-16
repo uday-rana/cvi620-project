@@ -12,7 +12,7 @@ def main():
     x_train, x_test, y_train, y_test = preprocess_data(DATASET_PATH)
     x_train, y_train = augment_data(x_train, y_train)
     H = train_model(x_train, x_test, y_train, y_test)
-    visualize_training()
+    visualize_training(H)
 
 
 if __name__ == "__main__":
