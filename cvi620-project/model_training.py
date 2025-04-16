@@ -4,6 +4,8 @@ from keras.optimizers import Adam
 
 
 def train_model(x_train, x_test, y_train, y_test):
+    MODEL_FILENAME = "model.h5"
+
     print("Training the neural network...")
 
     net = Sequential(
@@ -38,6 +40,7 @@ def train_model(x_train, x_test, y_train, y_test):
         epochs=10,
     )
 
-    net.save("model.h5")
+    net.save(MODEL_FILENAME)
+    print(f"Saved model to {MODEL_FILENAME}")
 
     return H
