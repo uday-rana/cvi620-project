@@ -19,41 +19,41 @@ def augment_data(images, steerings):
             h, w = img.shape[:2]
 
             # Flip horizontally
-            img = cv2.flip(img, 1)
-            steering = -steering
+            aug = cv2.flip(img, 1)
+            aug_steering = -steering
 
             # Brightness adjustment (in HSV)
-            bright = (img * 255).astype(np.uint8)
+            bright = (aug * 255).astype(np.uint8)
             bright = cv2.cvtColor(bright, cv2.COLOR_YUV2BGR)
             hsv = cv2.cvtColor(bright, cv2.COLOR_BGR2HSV)
             hsv[:, :, 2] *= random.uniform(0.5, 1.5)
             hsv = np.clip(hsv, 0, 255)
             bright = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
-            img = cv2.cvtColor(bright, cv2.COLOR_BGR2YUV)
-            img = img.astype(np.float32) / 255.0
+            aug = cv2.cvtColor(bright, cv2.COLOR_BGR2YUV)
+            aug = aug.astype(np.float32) / 255.0
 
             # Zoom
             zoom_factor = random.uniform(1.0, 1.2)  # only zoom in
             zh, zw = int(h * zoom_factor), int(w * zoom_factor)
-            img = cv2.resize(img, (zw, zh))
+            aug = cv2.resize(aug, (zw, zh))
             start_y = (zh - h) // 2
             start_x = (zw - w) // 2
-            img = img[start_y : start_y + h, start_x : start_x + w]
+            aug = aug[start_y : start_y + h, start_x : start_x + w]
 
             # Shift
             dx = random.randint(-20, 20)
             dy = random.randint(-10, 10)
             M = np.float32([[1, 0, dx], [0, 1, dy]])
-            img = cv2.warpAffine(img, M, (w, h))
-            steering += dx * 0.002
+            aug = cv2.warpAffine(aug, M, (w, h))
+            aug_steering += dx * 0.002
 
             # Rotate
             angle = random.uniform(-10, 10)
             M = cv2.getRotationMatrix2D((w // 2, h // 2), angle, 1)
-            img = cv2.warpAffine(img, M, (w, h))
-            steering += angle * 0.01
+            aug = cv2.warpAffine(aug, M, (w, h))
+            aug_steering += angle * 0.01
 
-            aug_images.append(img)
-            aug_steerings.append(steering)
+            aug_images.append(aug)
+            aug_steerings.append(aug_steering)
 
     return np.array(aug_images), np.array(aug_steerings)
