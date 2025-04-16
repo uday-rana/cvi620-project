@@ -4,6 +4,7 @@ from dataset_batching import batch_dataset
 from model_training import train_model
 from training_visualization import visualize_training
 
+
 def main():
     DATASET_PATH = "./data"
 
@@ -11,7 +12,6 @@ def main():
 
     images, steerings = preprocess_data(DATASET_PATH)
     aug_images, aug_steerings = augment_data(images, steerings)
-
     batch_dataset(aug_images, aug_steerings)
     train_model()
     visualize_training()
