@@ -26,8 +26,9 @@ def augment_data(images, steerings):
             bright = (aug * 255).astype(np.uint8)
             bright = cv2.cvtColor(bright, cv2.COLOR_YUV2BGR)
             hsv = cv2.cvtColor(bright, cv2.COLOR_BGR2HSV)
+            hsv = hsv.astype(np.float32)
             hsv[:, :, 2] *= random.uniform(0.5, 1.5)
-            hsv = np.clip(hsv, 0, 255)
+            hsv = np.clip(hsv, 0, 255).astype(np.uint8)
             bright = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
             aug = cv2.cvtColor(bright, cv2.COLOR_BGR2YUV)
             aug = aug.astype(np.float32) / 255.0
