@@ -18,25 +18,37 @@ def preprocess_data(dataset_path):
     images, steerings = [], []
 
     for row in df.itertuples():
-        # Keep ~50% of 0 steering values
-        if abs(row.steering) < 0.01 and np.random.rand() < 0.5:
+        if abs(row.steering) < 0.25 and np.random.rand() < 0.5:
+            continue
+        if abs(row.steering) < 0.1 and np.random.rand() < 0.3:
             continue
 
-        # Get path to image
-        image_path = os.path.normpath(
-            os.path.join(dataset_path, "IMG", os.path.basename(row.center))
-        )
+        steering = row.steering
+        repeats = 1
 
-        print(f"Reading {image_path}")
-        img = cv.imread(image_path)
+        if abs(steering) > 0.4:
+            repeats = 100
+        elif abs(steering) > 0.3:
+            repeats = 16
+        elif abs(steering) > 0.15:
+            repeats = 8
 
-        img = img[60:135, :]
-        img = cv.cvtColor(img, cv.COLOR_BGR2YUV)
-        img = cv.resize(img, (200, 66))
-        img = img / 255
+        for _ in range(repeats):
+            # Get path to image
+            image_path = os.path.normpath(
+                os.path.join(dataset_path, "IMG", os.path.basename(row.center))
+            )
 
-        images.append(img)
-        steerings.append(row.steering)
+            print(f"Reading {image_path}")
+            img = cv.imread(image_path)
+
+            img = img[60:135, :]
+            img = cv.cvtColor(img, cv.COLOR_BGR2YUV)
+            img = cv.resize(img, (200, 66))
+            img = img / 255
+
+            images.append(img)
+            steerings.append(row.steering)
 
     images = np.array(images)
     steerings = np.array(steerings)
