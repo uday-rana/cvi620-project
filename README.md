@@ -7,7 +7,7 @@ Computer Programming and Analysis
 **Course:** CVI620 – Computer Vision  
 **Term:** Winter 2025 (2251)
 
-[Watch demo on YouTube](https://youtu.be/JOZqNO-JRSc)
+[Watch the demo on YouTube](https://youtu.be/JOZqNO-JRSc)
 
 ## Team
 
