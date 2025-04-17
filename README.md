@@ -1,12 +1,15 @@
 # cvi620-project
 
+Self-Driving Car Simulation
+
 Seneca Polytechnic  
 Computer Programming and Analysis  
 **Course:** CVI620 – Computer Vision  
-**Term:** Winter 2025 (2251)  
-**Final Project – Self-Driving Car Simulation**
+**Term:** Winter 2025 (2251)
 
-## Team Members & Roles
+[![Self-driving car demo](https://img.youtube.com/vi/JOZqNO-JRSc/0.jpg)](https://youtu.be/JOZqNO-JRSc)
+
+## Team
 
 | Name             | Role                                                    |
 | ---------------- | ------------------------------------------------------- |
@@ -14,27 +17,26 @@ Computer Programming and Analysis
 | **Sangjune Lee** | Data Preprocessing, Dataset Collection & Testing        |
 | **Uday Rana**    | Model Design, Training, Dataset Batching, Visualization |
 
----
-
 Each team member focused on a specific module:
 
 - **Sooyeon Kim** handled the data augmentation strategy and implemented the simulation script for model inference.
 - **Sangjune Lee** collected the training data, developed the preprocessing pipeline to clean and standardize the raw driving logs and images, simulation testing/recording.
-- **Uday Rana** led the model architecture design, training workflow, batching logic, and training visualization tools.
+- **Uday Rana** led the model architecture design, training workflow, and training visualization tools.
 
-## Environment Setup
-
-This project was developed using Python 3.9 and `conda` for environment management.
-
-### 1. Clone the Repository
+## Setup
 
 ```sh
+# Clone the repository
 git clone https://github.com/uday-rana/cvi620-project.git
+
+# Create a Conda environment
 conda env create -f environment.yaml
+
+# Activate the environment
 conda activate cvi620-project
 ```
 
-## Platform-Specific Setup Notes (macOS)
+### macOS Setup
 
 If you are using **macOS**, please be aware of the following setup differences:
 
@@ -61,10 +63,7 @@ This ensures that your environment remains stable and the training pipeline runs
 
    This will create a trained model saved as `model.h5`.
 
-3. To test the trained model in autonomous mode:
-
-   - Launch the simulator in **autonomous mode**
-   - Then run:
+3. To test the trained model, launch the simulator in autonomous mode. Then run the following command:
 
    ```sh
    python scripts/TestSimulation.py
@@ -73,20 +72,16 @@ This ensures that your environment remains stable and the training pipeline runs
 ## Challenges Encountered
 
 - During testing, we encountered an issue where the vehicle did not move at all in autonomous mode.
-  After several attempts debugging the model and dataset, we realized it was due to a WebSocket version mismatch.
-  Installing the following specific dependency versions fixed the issue for all team members (not only macOS users):
+  After several attempts debugging the model and dataset, we realized it was due to a package version mismatch.
+  Installing the following specific dependency fixed the issue:
 
   ```sh
-  pip install python-engineio==3.8.2
   pip install python-socketio==4.2.1
-  pip install flask-socketio==3.3.1
   ```
 
 - Our initial dataset was too small for the depth of the neural network. We had to go back and gather more data for the model to be trained properly.
 
 - Our dataset was heavily biased toward a steering angle of 0.00°, so we had to programmatically standardize the distribution by lowering the frequency of values close to zero, and dramatically increasing the frequency of values farther away from zero.
-
-- Our data was collected by driving mostly in the middle of the road, so when driving in autonomous mode, if the car ended up near the edges it had trouble steering. This was fixed by performing horizontal image shifting / panning as part of data augmentation .
 
 ## Final Deliverables
 
