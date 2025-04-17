@@ -7,7 +7,7 @@ Computer Programming and Analysis
 **Course:** CVI620 – Computer Vision  
 **Term:** Winter 2025 (2251)
 
-[![Self-driving car demo](https://img.youtube.com/vi/JOZqNO-JRSc/0.jpg)](https://youtu.be/JOZqNO-JRSc)
+[Watch demo on YouTube](https://youtu.be/JOZqNO-JRSc)
 
 ## Team
 
