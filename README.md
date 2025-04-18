@@ -30,23 +30,6 @@ conda env create -f environment.yaml
 conda activate cvi620-project
 ```
 
-<details>
-<summary>macOS Setup</summary>
-<br>
-If you are using macOS, please be aware of the following setup differences:
-
-- The simulator used in this project was downloaded directly from the official [Udacity Self-Driving Car Simulator GitHub repository](https://github.com/udacity/self-driving-car-sim), as the default installer provided may not work reliably on macOS.
-
-- Some Python dependencies included in `requirements.txt` or `environment.yaml` were either incompatible with macOS or not required for local development. In those cases:
-
-  - Incompatible dependencies were either replaced with macOS-friendly versions, or
-  - Unnecessary dependencies were commented out or removed to avoid installation issues.
-
-- A separate conda environment was created to isolate these changes. If you are using macOS, it is **recommended** to review and adjust the dependencies before installing with `pip` or `conda`.
-
-This ensures that your environment remains stable and the training pipeline runs without error on macOS systems.
-</details>
-
 ## Usage
 
 1. Collect driving data using [Udacity's Self-Driving Car Simulator](https://github.com/udacity/self-driving-car-sim) in training mode. Save the output into a folder named `data/`.
@@ -57,7 +40,7 @@ This ensures that your environment remains stable and the training pipeline runs
    python cvi620-project
    ```
 
-   This will create a trained model saved as `model.h5`.
+   The model will be saved in the current directory as `model.h5`.
 
 3. To test the trained model, launch the simulator in autonomous mode. Then run the following command:
 
