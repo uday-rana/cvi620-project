@@ -36,9 +36,10 @@ conda env create -f environment.yaml
 conda activate cvi620-project
 ```
 
-### macOS Setup
-
-If you are using **macOS**, please be aware of the following setup differences:
+<details>
+<summary>macOS Setup</summary>
+<br>
+If you are using macOS, please be aware of the following setup differences:
 
 - The simulator used in this project was downloaded directly from the official [Udacity Self-Driving Car Simulator GitHub repository](https://github.com/udacity/self-driving-car-sim), as the default installer provided may not work reliably on macOS.
 
@@ -50,6 +51,7 @@ If you are using **macOS**, please be aware of the following setup differences:
 - A separate conda environment was created to isolate these changes. If you are using macOS, it is **recommended** to review and adjust the dependencies before installing with `pip` or `conda`.
 
 This ensures that your environment remains stable and the training pipeline runs without error on macOS systems.
+</details>
 
 ## Usage
 
@@ -58,7 +60,7 @@ This ensures that your environment remains stable and the training pipeline runs
 2. Train the model using the following command:
 
    ```sh
-   python -m cvi620-project
+   python cvi620-project
    ```
 
    This will create a trained model saved as `model.h5`.
@@ -81,7 +83,7 @@ This ensures that your environment remains stable and the training pipeline runs
 
 - Our initial dataset was too small for the depth of the neural network. We had to go back and gather more data for the model to be trained properly.
 
-- Our dataset was heavily biased toward a steering angle of 0.00°, so we had to programmatically standardize the distribution by lowering the frequency of values close to zero, and dramatically increasing the frequency of values farther away from zero.
+- Our dataset was heavily biased toward a steering angle of 0.00°, so we had to programmatically standardize the distribution by lowering the frequency of values close to zero and dramatically increasing the frequency of values farther away from zero.
 
 ## Final Deliverables
 
@@ -94,5 +96,3 @@ This ensures that your environment remains stable and the training pipeline runs
   - `scripts/TestSimulation.py`: Runs the trained model in inference mode to control the car in the simulator.
 
 - `model.h5`: The final trained model
-
-- README with setup instructions and development challenges
