@@ -67,13 +67,7 @@ This ensures that your environment remains stable and the training pipeline runs
 
 ## Challenges Encountered
 
-- During testing, we encountered an issue where the vehicle did not move at all in autonomous mode.
-  After several attempts debugging the model and dataset, we realized it was due to a package version mismatch.
-  Installing the following specific dependency fixed the issue:
-
-  ```sh
-  pip install python-socketio==4.2.1
-  ```
+- During testing, we encountered an issue where the vehicle did not move at all in autonomous mode. After several attempts debugging the model and dataset, we realized it was due to a package version mismatch. Installing `python-socketio==4.2.1` fixed the issue.
 
 - Our initial dataset was too small for the depth of the neural network. We had to go back and gather more data for the model to be trained properly.
 
