@@ -17,12 +17,6 @@ Computer Programming and Analysis
 | **Sangjune Lee** | Data Preprocessing, Dataset Collection & Testing        |
 | **Uday Rana**    | Model Design, Training, Dataset Batching, Visualization |
 
-Each team member focused on a specific module:
-
-- **Sooyeon Kim** handled the data augmentation strategy and implemented the simulation script for model inference.
-- **Sangjune Lee** collected the training data, developed the preprocessing pipeline to clean and standardize the raw driving logs and images, simulation testing/recording.
-- **Uday Rana** led the model architecture design, training workflow, and training visualization tools.
-
 ## Setup
 
 ```sh
@@ -84,15 +78,3 @@ This ensures that your environment remains stable and the training pipeline runs
 - Our initial dataset was too small for the depth of the neural network. We had to go back and gather more data for the model to be trained properly.
 
 - Our dataset was heavily biased toward a steering angle of 0.00°, so we had to programmatically standardize the distribution by lowering the frequency of values close to zero and dramatically increasing the frequency of values farther away from zero.
-
-## Final Deliverables
-
-- Modularized codebase with clearly separated functionality:
-
-  - `data_preprocessing.py`: Loads and cleans raw driving log data, preprocesses images (cropping, resizing, normalization).
-  - `data_augmentation.py`: Performs data augmentation including flipping, brightness adjustment, shifting, zooming, and rotation to enrich the dataset.
-  - `model_training.py`: Defines and trains the convolutional neural network (CNN) using the processed and augmented dataset.
-  - `training_visualization.py`: Plots training and validation loss curves to help evaluate model performance.
-  - `scripts/TestSimulation.py`: Runs the trained model in inference mode to control the car in the simulator.
-
-- `model.h5`: The final trained model
