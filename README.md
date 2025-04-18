@@ -15,7 +15,7 @@ Computer Programming and Analysis
 | ---------------- | ------------------------------------------------------- |
 | **Sooyeon Kim**  | Data Augmentation, Inference & Testing                  |
 | **Sangjune Lee** | Data Preprocessing, Dataset Collection & Testing        |
-| **Uday Rana**    | Model Design, Training, Dataset Batching, Visualization |
+| **Uday Rana**    | Model Design, Training, Visualization |
 
 ## Setup
 
